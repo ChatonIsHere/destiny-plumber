@@ -15,7 +15,7 @@ loc.manifestLock = path.join(loc.plumbing, "manifestLock.json");
 loc.definitions = path.join(loc.plumbing, "definitions");
 
 module.exports.update = function update() {
-    if (!fs.existsSync(loc.manifestLock)) setup();
+    checkManifestExists();
 
     let manifest = require(loc.manifest),
         manifestLock = require(loc.manifestLock);
@@ -24,13 +24,42 @@ module.exports.update = function update() {
     if (manifestLock.bungieManifestVersion !== JSON.parse(downloadFileSync("https://destiny.plumbing/")).bungieManifestVersion) pullDefinitions(manifest);
 }
 
-module.exports.define = (definition, update = true) => {
-    if (update) this.update();
+module.exports.get = function get(definition) {
+    checkManifestExists();
 
     if (loadDefinitions().includes(definition)) return require(path.join(loc.definitions, `${definition}.json`));
     if (loadDefinitions().includes(`Destiny${definition}Definition`)) return require(path.join(loc.definitions, `Destiny${definition}Definition.json`));
     
     throw new Error(`"${definition}" is not a valid Definition`);
+}
+
+module.exports.define = function define(definition, hash) {
+    checkManifestExists();
+
+    let definitions = loadDefinitions();
+
+    if (definitions.includes(definition)) {
+        let tempDef = require(path.join(loc.definitions, `${definition}.json`));
+        if (tempDef[hash]) return tempDef[hash];
+    }
+    else if (definitions.includes(`Destiny${definition}Definition`)) {
+        let tempDef = require(path.join(loc.definitions, `Destiny${definition}Definition.json`));
+        if (tempDef[hash]) return tempDef[hash];
+    }
+    
+    throw new Error(`"${hash}" could not be converted`);
+}
+
+module.exports.tools = {};
+
+module.exports.tools.getClassName = (hash) => {
+    let DestinyClassDefinition = require(path.join(loc.definitions, "DestinyClassDefinition.json"));
+    if (DestinyClassDefinition[hash]) return DestinyClassDefinition[hash].displayProperties.name;
+    throw new Error(`"${hash}" could not be converted`);
+}
+
+function checkManifestExists() {
+    if (!fs.existsSync(loc.manifestLock)) setup();
 }
 
 function checkDir(path) {

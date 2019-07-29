@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+# Destiny Plumbing Manifest and Dictionaries
+destiny-plumbing/
+
+# Temporary Testing Files
+test.js
+testing.js

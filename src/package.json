@@ -1,6 +1,6 @@
 {
   "name": "@ehsawyer/destiny-plumbing-sync",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "An attempt at pulling up-tp-date information from destiny.plumbing",
   "main": "destiny-plumbing-sync.js",
   "author": "Ethan Sawyer",

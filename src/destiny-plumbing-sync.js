@@ -24,8 +24,8 @@ module.exports.update = function update() {
     if (manifestLock.bungieManifestVersion !== JSON.parse(downloadFileSync("https://destiny.plumbing/")).bungieManifestVersion) pullDefinitions(manifest);
 }
 
-module.exports.get = (definition) => {
-    this.update();
+module.exports.define = (definition, update = true) => {
+    if (update) this.update();
 
     if (loadDefinitions().includes(definition)) return require(path.join(loc.definitions, `${definition}.json`));
     if (loadDefinitions().includes(`Destiny${definition}Definition`)) return require(path.join(loc.definitions, `Destiny${definition}Definition.json`));

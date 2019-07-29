@@ -1,8 +1,8 @@
 {
   "name": "@ehsawyer/destiny-plumbing-sync",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "An attempt at pulling up-tp-date information from destiny.plumbing",
-  "main": "globalDp.js",
+  "main": "destiny-plumbing-sync.js",
   "author": "Ethan Sawyer",
   "license": "GPL-3.0-only"
 }

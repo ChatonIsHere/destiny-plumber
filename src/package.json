@@ -1,6 +1,6 @@
 {
-  "name": "@chatonishere/destiny-plumbing-sync",
-  "version": "1.0.0",
+  "name": "@chatonishere/destiny-plumber",
+  "version": "1.0.4",
   "description": "An attempt at pulling up-tp-date information from destiny.plumbing",
   "main": "destiny-plumbing-sync.js",
   "author": "Chaton",
